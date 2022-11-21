@@ -6,6 +6,21 @@ steps:
     args: ["build", "-t", "$_GCR_HOSTNAME/$PROJECT_ID/$_REPOSITORY/$_SERVICE_NAME", "--build-arg=JAR_FILE=build/libs/demo-0.0.1-SNAPSHOT.jar", "."]
   - name: "gcr.io/cloud-builders/docker"
     args: ['push', '$_GCR_HOSTNAME/$PROJECT_ID/$_REPOSITORY/$_SERVICE_NAME:$_VERSION']
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    args:
+      - run
+      - deploy
+      - $_SERVICE_NAME
+      - '--platform=managed'
+      - '--image=$_GCR_HOSTNAME/$PROJECT_ID/$_REPOSITORY/$_SERVICE_NAME:$_VERSION'
+      - '--region=$_DEPLOY_REGION'
+      - '--max-instances=1'
+      - '--project=$PROJECT_ID'
+      - '--allow-unauthenticated'
+      - '--service-account=606652792419-compute@developer.gserviceaccount.com'
+      - '--quiet'
+    id: Deploy
+    entrypoint: gcloud
 substitutions:
   _REPOSITORY: spring-address-backend
   _SERVICE_NAME: spring-address
