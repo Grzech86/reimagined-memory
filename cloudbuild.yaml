@@ -26,5 +26,6 @@ substitutions:
   _SERVICE_NAME: spring-address
   _VERSION: latest
   _GCR_HOSTNAME: us-central1-docker.pkg.dev
+  _DEPLOY_REGION: us-central1-a
 tags:
   - spring-address-backend
