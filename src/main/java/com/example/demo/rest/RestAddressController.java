@@ -21,6 +21,11 @@ public class RestAddressController {
         return "hello";
     }
 
+    @GetMapping("hello2")
+    public String hello2() {
+        return "more hello";
+    }
+
     public RestAddressController(AddressController addressController) {
         this.addressController = addressController;
     }
